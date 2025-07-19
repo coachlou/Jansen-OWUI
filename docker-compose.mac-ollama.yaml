@@ -8,15 +8,20 @@ services:
     ports:
       - ${OPEN_WEBUI_PORT-3000}:8080
     environment:
-      - OLLAMA_BASE_URL=http://host.docker.internal:11434  # Point to native Ollama
+
+#      - OLLAMA_BASE_URL=http://host.docker.internal:11434  # Point to native Ollama
+      - OLLAMA_BASE_URL=http://127.0.0.1:11434 #for jansen-talk to ollama on localhost server
+
       - WEBUI_SECRET_KEY=JansenIncSecret  # Use env variable or leave empty
       - ENABLE_COMMUNITY_SHARING=false  # Disable community sharing
       - ANONYMIZED_TELEMETRY=false  # Disable telemetry
       - DO_NOT_TRACK=true  # Disable tracking
       - SCARF_NO_ANALYTICS=true  # Disable analytics
+
     network_mode: host  # Use host network to simplify access to Ollama
     # extra_hosts:
     #  - host.docker.internal:host-gateway  # Required for Mac to reach host
     restart: unless-stopped
 volumes:
   open-webui: {}
+
